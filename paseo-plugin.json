@@ -1,0 +1,9 @@
+{
+  "id": "paseo-replies",
+  "media": [],
+  "requirements": {
+    "paseo": ">=0.13.2"
+  },
+  "name": "Replies",
+  "description": "After each agent turn, a Replies pill offers the answers you would likely send, written by Claude Haiku, and sends the one you pick."
+}
