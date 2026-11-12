@@ -61,7 +61,7 @@ export function contributeReplyPills(client: PluginClientContext, agents: Agents
 
   // The popover reads the list live, so a new list never needs a new behavior,
   // which would close an open popover.
-  function RepliesMenu({ theme, close, ...target }: PluginButtonContentProps) {
+  function RepliesMenu({ theme, layout, close, ...target }: PluginButtonContentProps) {
     const agentId = target.context === "agent" ? target.agentId : "";
     const [list, setList] = useState(() => replies.get(agentId) ?? []);
     useEffect(() => {
@@ -82,26 +82,26 @@ export function contributeReplyPills(client: PluginClientContext, agents: Agents
     const styles = useMemo(
       () => ({
         // A fixed width: a long reply wraps instead of widening the popover.
-        list: { gap: 2, width: 300, maxWidth: "100%" as const },
+        list: { gap: 0, width: 280, maxWidth: "100%" as const },
         row: {
           flexDirection: "row" as const,
           alignItems: "flex-start" as const,
-          gap: 10,
-          paddingVertical: 7,
-          paddingHorizontal: 10,
-          borderRadius: 6,
+          gap: 8,
+          paddingVertical: layout.compact ? 13 : 5,
+          paddingHorizontal: 8,
+          borderRadius: 4,
         },
-        icon: { flexShrink: 0, height: 20, justifyContent: "center" as const, marginTop: 2 },
+        icon: { flexShrink: 0, height: 18, justifyContent: "center" as const },
         highlighted: { backgroundColor: theme.colors.surface2 },
-        text: { flex: 1, color: theme.colors.foreground, fontSize: 14, lineHeight: 20 },
+        text: { flex: 1, color: theme.colors.foreground, fontSize: 13, lineHeight: 18 },
         note: {
           color: theme.colors.foregroundMuted,
           fontSize: 12,
-          paddingHorizontal: 10,
+          paddingHorizontal: 8,
           paddingVertical: 4,
         },
       }),
-      [theme],
+      [theme, layout.compact],
     );
     return (
       <View style={styles.list}>
@@ -164,7 +164,7 @@ export function contributeReplyPills(client: PluginClientContext, agents: Agents
             ]}
           >
             <View style={styles.icon}>
-              <Icon name="MessageSquareReply" size={16} color={theme.colors.foreground} />
+              <Icon name="MessageSquareReply" size={14} color={theme.colors.foreground} />
             </View>
             <Text style={styles.text}>{reply}</Text>
           </Pressable>
