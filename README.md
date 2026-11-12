@@ -10,6 +10,18 @@ paseo plugin install git:508-dev/paseo-replies
 
 Plugins must already be enabled under Settings → Plugins. Plugins are trusted, unsandboxed code on the daemon host and in the app.
 
+## Screenshots
+
+Browser-fixture previews of the actual reply-menu component with sample data and a simulated host. The message box represents Paseo's normal composer. These are not live Paseo or native app captures; see [verification limits](QA.md).
+
+**Desktop, dark theme**
+
+![Compact reply menu above the normal composer in a dark desktop browser fixture](assets/screenshots/replies-desktop-dark.png)
+
+**Compact layout, light theme**
+
+<img src="assets/screenshots/replies-compact-light.png" alt="Reply menu with touch targets above the normal composer in a light compact browser fixture" width="390" />
+
 ## Generation settings
 
 Open this plugin's settings under Settings → Plugins:
