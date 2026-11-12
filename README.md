@@ -41,6 +41,8 @@ paseo plugin reload replies-508
 
 Paseo supplies runtime dependencies; installing from Git requires no preparation commands.
 
+Core API proposal: [composer suggestions and Tab-to-accept](https://github.com/getpaseo/paseo/discussions/9516).
+
 ## Attribution
 
 Derived from [cleiter/paseo-replies](https://github.com/cleiter/paseo-replies), commit `aab1c77`, under Apache-2.0. Original history and LICENSE are retained. 508-dev changed reply acceptance to editable drafts and added model configuration, visible errors, request deduplication, and regression tests. This fork is an independent prototype.
