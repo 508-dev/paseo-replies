@@ -35,7 +35,7 @@ export function createReplies({ agents, readExchange, generate, composer }: Repl
     return BUSY.has(agents.statuses.get(agentId) ?? "");
   }
   async function retry(agentId: string) {
-    if (stopped || isBusy(agentId) || composer(agentId)?.prompt.trim()) return;
+    if (stopped || isBusy(agentId) || composer(agentId)?.prompt.length) return;
     const read = (reads.get(agentId) ?? 0) + 1;
     reads.set(agentId, read);
     try {
@@ -43,7 +43,7 @@ export function createReplies({ agents, readExchange, generate, composer }: Repl
       if (stopped || reads.get(agentId) !== read) return;
       const result = input ? await generate(input) : { replies: [] };
       if (stopped || reads.get(agentId) !== read) return;
-      if (composer(agentId)?.prompt.trim()) return dismiss(agentId);
+      if (composer(agentId)?.prompt.length) return dismiss(agentId);
       const state: ReplyState = result.replies.length
         ? { status: "ready", replies: result.replies }
         : null;

@@ -23,9 +23,9 @@ export function ReplySection({
   const toast = useToast();
   const prompt = composer?.prompt ?? "";
   useEffect(() => {
-    if (prompt.trim()) replies.dismiss(agentId);
+    if (prompt.length > 0) replies.dismiss(agentId);
   }, [replies, agentId, prompt]);
-  if (!composer || prompt.trim() || !state) return null;
+  if (!composer || prompt.length > 0 || !state) return null;
   const color = theme.colors.foreground;
   const muted = theme.colors.foregroundMuted;
   return (

@@ -105,6 +105,32 @@ describe("inline reply lifecycle", () => {
     );
     expect(f.target.setPrompt).not.toHaveBeenCalled();
   });
+  it.each([" ", "\n", "\t"])("skips generation for whitespace draft %j", async (prompt) => {
+    const f = fixture();
+    f.target.prompt = prompt;
+    await f.replies.retry("agent");
+    expect(f.generate).not.toHaveBeenCalled();
+    expect(f.replies.snapshot("agent")).toBeNull();
+  });
+  it.each([" ", "\n", "\t"])(
+    "does not publish an in-flight reply over whitespace %j",
+    async (prompt) => {
+      const f = fixture();
+      let resolve: (value: { replies: string[] }) => void = () => {};
+      f.generate.mockImplementationOnce(
+        () =>
+          new Promise((done) => {
+            resolve = done;
+          }),
+      );
+      const pending = f.replies.retry("agent");
+      await vi.waitFor(() => expect(f.generate).toHaveBeenCalledTimes(1));
+      f.target.prompt = prompt;
+      resolve({ replies: ["Stale"] });
+      await pending;
+      expect(f.replies.snapshot("agent")).toBeNull();
+    },
+  );
   it("skips generation when the user already has a draft", async () => {
     const f = fixture();
     f.target.prompt = "My own reply";
