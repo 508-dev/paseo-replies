@@ -82,13 +82,13 @@ export function contributeReplyPills(client: PluginClientContext, agents: Agents
     const styles = useMemo(
       () => ({
         // A fixed width: a long reply wraps instead of widening the popover.
-        list: { gap: 0, width: 280, maxWidth: "100%" as const },
+        list: { gap: 0, width: 260, maxWidth: "100%" as const },
         row: {
           flexDirection: "row" as const,
           alignItems: "flex-start" as const,
-          gap: 8,
-          paddingVertical: layout.compact ? 13 : 5,
-          paddingHorizontal: 8,
+          gap: 6,
+          paddingVertical: layout.compact ? 7 : 3,
+          paddingHorizontal: 6,
           borderRadius: 4,
         },
         icon: { flexShrink: 0, height: 18, justifyContent: "center" as const },
@@ -97,7 +97,7 @@ export function contributeReplyPills(client: PluginClientContext, agents: Agents
         note: {
           color: theme.colors.foregroundMuted,
           fontSize: 12,
-          paddingHorizontal: 8,
+          paddingHorizontal: 6,
           paddingVertical: 4,
         },
       }),
@@ -164,7 +164,7 @@ export function contributeReplyPills(client: PluginClientContext, agents: Agents
             ]}
           >
             <View style={styles.icon}>
-              <Icon name="MessageSquareReply" size={14} color={theme.colors.foreground} />
+              <Icon name="MessageSquareReply" size={12} color={theme.colors.foreground} />
             </View>
             <Text style={styles.text}>{reply}</Text>
           </Pressable>
