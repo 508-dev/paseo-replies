@@ -23,6 +23,13 @@ describe("insertReply", () => {
     expect(target.focus).not.toHaveBeenCalled();
   });
 
+  it.each([" ", "\n", "\t"])("preserves a whitespace draft %j", async (prompt) => {
+    const target = composer(prompt);
+    await expect(insertReply(target, "Merge now")).rejects.toThrow("Clear your draft");
+    expect(target.setPrompt).not.toHaveBeenCalled();
+    expect(target.focus).not.toHaveBeenCalled();
+  });
+
   it("refuses an unavailable composer", async () => {
     await expect(insertReply(undefined, "Merge now")).rejects.toThrow("unavailable");
   });
