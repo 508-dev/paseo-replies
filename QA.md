@@ -1,10 +1,9 @@
-# Prototype verification
+# Inline prototype verification
 
-Version 0.2.0 targets the published plugin SDK 0.16.0-beta.2.
+This branch requires the unpublished core composer section API. The temporary client type augmentation matches that proposal; it does not add a runtime API to published Paseo clients.
 
-- Typecheck and lint pass.
-- 25 targeted Vitest checks pass: transcript extraction, output parsing, editable insertion, draft preservation, unavailable composer, focus failure, generation defaults, model selection, isolation flags, disabled generation, model-aware caching, in-flight deduplication, retry, and concurrency limits.
-- Paseo's compileDirectoryPlugin accepts both entries and the manifest against 0.16.0-beta.2.
-- A browser fixture renders the actual reply-list component through React Native Web with simulated host state. Checked dark desktop and light compact layouts, selection inserting and focusing a draft, existing drafts disabling insertion, and a new turn removing stale replies. The fixture does not verify Paseo's native popover or sheet integration.
+- Typecheck and lint pass against the published SDK plus the proposed section contract.
+- Ten additional lifecycle tests cover observed turn completion, selection clearing and inserting, permanent dismissal after typing, rejection of in-flight stale results, new-turn invalidation, draft preservation, retryable failures, startup/reconnect, and teardown. The original 25 parsing, insertion, and generation tests remain in CI.
+- A browser fixture renders the actual inline component through React Native Web with simulated host state and the proposed section context. It checks a title with no pill, automatic choices, insertion/focus, removal on selection/typing/new turn, no reappearance after clearing text, and no horizontal overflow in dark desktop/light compact layouts. The repository screenshots come from this fixture.
 
-Not yet verified in a live Paseo host: installation/reload, real Claude account generation, settings persistence across connected devices, iOS/Android keyboard and sheet behavior. No main daemon was restarted or reconfigured. Treat this as an opt-in prototype, not a fully validated release.
+The core PR has separate registration and host-rendering tests. Live installation into a patched Paseo client, real Claude generation, cross-device settings persistence, and iOS/Android dock/keyboard behavior remain unverified. No main daemon was restarted or reconfigured.

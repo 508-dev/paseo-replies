@@ -1,26 +1,32 @@
 # Replies for Paseo
 
-A 508-dev prototype of suggested next replies. After an agent finishes, a **Replies** pill offers up to three choices. Selecting one fills the empty composer and focuses it so you can edit, then send normally. It never sends a suggestion automatically or replaces an existing draft.
+An experimental 508-dev plugin that shows a small **Suggested replies** title and up to three choices above Paseo's normal message input. There is no pill, popup, or dismiss button. Selecting a reply fills the input and focuses it for editing; it never sends automatically or replaces an existing draft.
 
-Requires **both the app and daemon on Paseo 0.16.0-beta.2 or later**. The stable 0.15 SDK does not include the composer APIs this prototype uses.
+Suggestions disappear after selection, when you type, or when the agent starts another turn. Clearing your draft does not bring old suggestions back.
+
+**This branch needs the accompanying, unreleased Paseo composer section API.** The published 0.16.0-beta.2 client does not include it. Build Paseo with [core PR #9520](https://github.com/getpaseo/paseo/pull/9520) before installing this branch. The plugin fails with an update message on clients without that API; it does not fall back to the old pill.
 
 ```sh
-paseo plugin install git:508-dev/paseo-replies
+paseo plugin install git:508-dev/paseo-replies --ref inline-suggestions
 ```
 
-Plugins must already be enabled under Settings → Plugins. Plugins are trusted, unsandboxed code on the daemon host and in the app.
+For the released pill-based prototype, use the `v0.2.0` Git reference. Plugins must already be enabled under Settings → Plugins. Plugins are trusted, unsandboxed code on the daemon host and in the app.
 
 ## Screenshots
 
-Browser-fixture previews of the actual reply-menu component with sample data and a simulated host. The message box represents Paseo's normal composer. These are not live Paseo or native app captures; see [verification limits](QA.md).
+Browser-fixture previews of the actual inline section component with sample data and a simulated host using the proposed core API. The message box represents Paseo's normal composer. These are not live Paseo or native app captures; see [verification limits](QA.md).
 
 **Desktop, dark theme**
 
-![Compact reply menu above the normal composer in a dark desktop browser fixture](assets/screenshots/replies-desktop-dark.png)
+![Suggested replies title and inline choices above the normal composer in a dark desktop browser fixture](assets/screenshots/replies-desktop-dark.png)
 
 **Compact layout, light theme**
 
-<img src="assets/screenshots/replies-compact-light.png" alt="Reply menu with touch targets above the normal composer in a light compact browser fixture" width="390" />
+<img src="assets/screenshots/replies-compact-light.png" alt="Inline reply choices above the normal composer in a light compact browser fixture" width="390" />
+
+**After choosing a suggestion**
+
+![Suggestions removed and the chosen reply inserted into the normal composer](assets/screenshots/reply-inserted-desktop-dark.png)
 
 ## Generation settings
 
@@ -36,7 +42,7 @@ The last assistant message (up to 4,000 characters) and preceding user message (
 
 ## Prototype limits
 
-Suggestions appear in a pill/popover, not as inline ghost text. Tab-to-accept, arrow-key selection in the composer, automatic suggestion placement, and shared Escape dismissal need a host-owned composer suggestions API. The app's existing popover dismissal still works. Mobile uses the host's compact presentation.
+Inline placement requires the unreleased core section hook. Tab-to-accept and arrow-key choice are not implemented. The plugin owns generation and the hide-on-selection/typing/new-turn behavior; the core hook only mounts content above the input.
 
 Generation follows agent status transitions observed by an open client. A disconnected client can miss a completed turn. Multiple clients share identical in-flight generation but do not share suggestion UI state. Disabling generation does not cancel a request already running.
 
@@ -46,7 +52,7 @@ Generation follows agent status transitions observed by an open client. A discon
 npm ci --ignore-scripts
 npm run typecheck
 npm run lint
-npm exec -- vitest run test/suggestions.test.ts test/insert-reply.test.ts test/generation.test.ts --bail=1
+npm exec -- vitest run test/suggestions.test.ts test/insert-reply.test.ts test/generation.test.ts test/replies.test.ts --bail=1
 npm run format
 paseo plugin reload replies-508
 ```
