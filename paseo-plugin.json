@@ -1,9 +1,9 @@
 {
-  "id": "paseo-replies",
+  "id": "replies-508",
   "media": [],
   "requirements": {
-    "paseo": ">=0.13.2"
+    "paseo": ">=0.16.0-beta.2"
   },
-  "name": "Replies",
-  "description": "After each agent turn, a Replies pill offers the answers you would likely send, written by Claude Haiku, and sends the one you pick."
+  "name": "Replies (508-dev prototype)",
+  "description": "Suggested next replies you can edit before sending, with a configurable Claude model."
 }

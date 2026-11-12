@@ -1,9 +1,9 @@
-# Replies
+# Suggested replies you can edit
 
-After each turn of an agent, a **Replies · n** pill appears above its composer. It opens a popover with the replies you would most likely send to the agent's last message, such as `Commit as is` or `Run the count query first`. Choosing one sends it to the agent as is.
+After an agent finishes a turn, a Replies pill offers up to three possible next messages. Choose one to fill the empty composer, edit it, and send when ready. Existing drafts are preserved.
 
-- **As many as make sense.** One reply per real choice the message offers, at most three: a yes or no question gets one or two, a message that only reports something gets at most one obvious next step, or none. When there is nothing to suggest, there is no pill.
-- **In your language.** The replies follow the language of your message that started the turn, so an English message quoting German text still gets English replies.
-- **Only when it can send.** The pill is hidden while the agent runs a turn and comes back with new replies after it. Turns that ended before the app opened get none, so opening the app does not ask for every idle agent at once.
+Both your app and daemon need Paseo 0.16.0-beta.2 or later. Install and log in to Claude Code on the daemon host. In the plugin's settings, choose the Claude model, change its executable path, or disable future generation. The default model is Haiku, independently of the model your conversation uses.
 
-The replies are written by Claude Haiku, through the `claude` command on the machine the Paseo daemon runs on, with your own login. The call sees the agent's last message and the start of your message before it, nothing else: it has no tools, MCP servers, slash commands, settings or saved session, and runs in the temporary directory, so no project's `CLAUDE.md` is read. Each finished turn costs one small Haiku request. A few seconds pass between the end of a turn and the pill.
+The plugin sends the last assistant message (up to 4,000 characters) and preceding user message (up to 500 characters) through that CLI to its model provider. Generation has no tools, MCP servers, project settings, hooks, or saved session. Generation can incur usage charges under your configured account.
+
+This prototype uses the existing pill and popover surfaces. Inline completion and Tab-to-accept are not implemented. An open client must observe the turn ending; opening an old conversation does not generate replies. Failures offer a retry action.

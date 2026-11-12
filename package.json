@@ -1,10 +1,13 @@
 {
-  "name": "paseo-replies",
+  "name": "@508-dev/paseo-replies",
+  "version": "0.2.0",
   "private": true,
-  "version": "0.1.0",
-  "description": "After each agent turn, suggests the replies you would likely send and sends the one you pick, in any Paseo workspace.",
+  "description": "Suggested next replies you can edit before sending, with a configurable Claude model.",
   "license": "Apache-2.0",
-  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/508-dev/paseo-replies.git"
+  },
   "files": [
     "paseo-plugin.json",
     "OVERVIEW.md",
@@ -15,14 +18,20 @@
     "server/",
     "shared/"
   ],
+  "type": "module",
   "scripts": {
     "typecheck": "tsc --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "lint": "oxlint",
+    "format": "oxfmt .",
+    "format:check": "oxfmt --check ."
   },
   "devDependencies": {
-    "@getpaseo/plugin": "0.13.2",
+    "@getpaseo/plugin": "0.16.0-beta.2",
     "@types/node": "^22.0.0",
     "@types/react": "~19.2.0",
+    "oxfmt": "0.46.0",
+    "oxlint": "1.61.0",
     "react": "19.1.0",
     "react-native": "0.81.5",
     "typescript": "^5.9.3",
