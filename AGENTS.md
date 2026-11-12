@@ -1,40 +1,11 @@
-# paseo-replies — agent instructions
+# Replies prototype
 
-A [Paseo](https://paseo.sh) plugin: after each agent turn, a Replies pill offers the replies the user would
-likely send, written by Claude Haiku. Users read [`OVERVIEW.md`](OVERVIEW.md); setup is in
-[`README.md`](README.md). The plugin API is documented at https://paseo.sh/docs/plugins/reference.md.
+A 508-dev fork of cleiter/paseo-replies, Apache-2.0. Keep LICENSE and attribution.
 
-## Layout
+Client code stays under client/, daemon code under server/, pure contracts under shared/. No DOM APIs. Every text color comes from theme.colors.
 
-| Path | Runs in | Holds |
-|---|---|---|
-| `index.client.tsx`, `client/` | the Paseo app (React Native, all platforms) | the pill, its popover, the agent subscription |
-| `index.server.ts`, `server/` | a daemon subprocess (Node) | the `claude` call |
-| `shared/` | both | the Zod RPC contract and pure logic, the only code `test/` covers |
+Use the published @getpaseo/plugin 0.16.0-beta.2 API. Both app and daemon require that version. Suggestions insert an editable draft; they must never send automatically or overwrite a nonempty prompt.
 
-Client code never imports `server/` or `node:*`.
+Generation uses a configurable Claude CLI model, no tools/MCP/settings/hooks or saved session, in a temporary directory. Do not weaken that isolation. Do not generate for old idle agents on startup.
 
-## After every change
-
-```bash
-npm run typecheck
-npm test
-```
-
-Load a change with `paseo plugin reload paseo-replies`, using the Paseo CLI that matches the daemon.
-
-## Rules the code depends on
-
-- **No DOM.** `tsconfig.json` has no DOM library. Declare the globals a module uses (`console`) at its top.
-  Use React Native primitives only, and take every colour from `theme.colors`.
-- **`claude` isolated.** `server/suggestions.ts` runs Haiku through the user's login with no tools, MCP servers,
-  slash commands, settings or saved session, in the temp directory. `--bare` would be simpler but skips the
-  OAuth login.
-- **No suggestions for old turns.** Only a turn that ends while the app is open is read, so opening the app
-  does not call Haiku for every idle agent.
-- **Updating a pill's `behavior` closes its open popover.** The popover reads the list live, so a new list
-  only updates the pill's label.
-
-## Commits
-
-English, plain, one change per commit.
+After changes run npm run typecheck, npm run lint, the specific affected Vitest files, and npm run format. Commit only task changes. Runtime ID: replies-508. Do not restart the main daemon.
