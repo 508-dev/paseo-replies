@@ -1,5 +1,7 @@
 # Replies for Paseo
 
+Development continues in [508-dev/paseo-plugins](https://github.com/508-dev/paseo-plugins/tree/main/plugins/replies). This repository remains installable for existing sources. Read the [migration guide](https://github.com/508-dev/paseo-plugins/blob/main/docs/migration.md) before switching an existing installation.
+
 A 508-dev prototype of suggested next replies. After an agent finishes, a **Replies** pill offers up to three choices. Selecting one fills the empty composer and focuses it so you can edit, then send normally. It never sends a suggestion automatically or replaces an existing draft.
 
 Requires **both the app and daemon on Paseo 0.16.0-beta.2 or later**. The stable 0.15 SDK does not include the composer APIs this prototype uses.
