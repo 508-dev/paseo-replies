@@ -5,7 +5,7 @@ export async function insertReply(
   text: string,
 ): Promise<void> {
   if (!composer) throw new Error("This agent's composer is unavailable.");
-  if (composer.prompt.trim())
+  if (composer.prompt.length > 0)
     throw new Error("Clear your draft before inserting a suggested reply.");
   composer.setPrompt(text);
   await composer.focus({ selection: { start: text.length, end: text.length } });

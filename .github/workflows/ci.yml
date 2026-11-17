@@ -17,4 +17,4 @@ jobs:
       - run: npm run typecheck
       - run: npm run lint
       - run: npm run format:check
-      - run: npm exec -- vitest run test/suggestions.test.ts test/insert-reply.test.ts test/generation.test.ts --bail=1
+      - run: npm exec -- vitest run test/suggestions.test.ts test/insert-reply.test.ts test/generation.test.ts test/replies.test.ts --bail=1

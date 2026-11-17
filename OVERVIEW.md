@@ -1,9 +1,9 @@
 # Suggested replies you can edit
 
-After an agent finishes a turn, a Replies pill offers up to three possible next messages. Choose one to fill the empty composer, edit it, and send when ready. Existing drafts are preserved.
+A small Suggested replies title and up to three choices appear above the normal composer after an agent finishes. Choose one to fill the input and edit before sending. There is no pill, popup, or dismiss button. Suggestions disappear on selection, typing, or a new turn; clearing your draft does not restore them.
 
-Both your app and daemon need Paseo 0.16.0-beta.2 or later. Install and log in to Claude Code on the daemon host. In the plugin's settings, choose the Claude model, change its executable path, or disable future generation. The default model is Haiku, independently of the model your conversation uses.
+This experimental branch requires Paseo built with the unreleased composer section API. Published clients through 0.16.0-beta.2 do not support it. Install and log in to Claude Code on the daemon host. Plugin settings choose its model and executable independently of the conversation model.
 
-The plugin sends the last assistant message (up to 4,000 characters) and preceding user message (up to 500 characters) through that CLI to its model provider. Generation has no tools, MCP servers, project settings, hooks, or saved session. Generation can incur usage charges under your configured account.
+The plugin sends the last assistant message (up to 4,000 characters) and preceding user message (up to 500 characters) through that CLI to its model provider. Generation has no tools, MCP servers, project settings, hooks, or saved session and can incur usage charges under your account.
 
-This prototype uses the existing pill and popover surfaces. Inline completion and Tab-to-accept are not implemented. An open client must observe the turn ending; opening an old conversation does not generate replies. Failures offer a retry action.
+Tab acceptance is not implemented. An open client must observe the turn ending. Opening an old conversation does not generate replies. Failures show a retry action above the input.
