@@ -1,5 +1,7 @@
 # Replies for Paseo
 
+Development continues in [508-dev/paseo-plugins](https://github.com/508-dev/paseo-plugins/tree/main/plugins/replies). This repository remains installable for existing sources. Read the [migration guide](https://github.com/508-dev/paseo-plugins/blob/main/docs/migration.md) before switching an existing installation.
+
 An experimental 508-dev plugin that shows a small **Suggested replies** title and up to three choices above Paseo's normal message input. There is no pill, popup, or dismiss button. Selecting a reply fills the input and focuses it for editing; it never sends automatically or replaces an existing draft.
 
 Suggestions disappear after selection, when you type, or when the agent starts another turn. Clearing your draft does not bring old suggestions back.
